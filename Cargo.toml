@@ -1,0 +1,33 @@
+[workspace]
+members = [
+    "crates/falcon-core",
+    "crates/falcon-facade",
+    "crates/falcon-server",
+    "crates/falcon-persistence",
+    "crates/falcon-bin",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+license = "BSL-1.1"
+
+[workspace.dependencies]
+falcon-core = { path = "crates/falcon-core" }
+falcon-facade = { path = "crates/falcon-facade" }
+falcon-server = { path = "crates/falcon-server" }
+falcon-persistence = { path = "crates/falcon-persistence" }
+
+ahash = "0.8"
+bytes = "1"
+crc = "3"
+itoa = "1"
+criterion = "0.5"
+mimalloc = { version = "0.1", default-features = false }
+smallvec = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "net", "io-util", "macros", "sync", "time"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }

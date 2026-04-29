@@ -1,0 +1,8 @@
+[package]
+name = "falcon-core"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+ahash = { workspace = true }
+thiserror = { workspace = true }

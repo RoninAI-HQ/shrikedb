@@ -1,0 +1,17 @@
+[package]
+name = "falcon-bin"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "falcondb"
+path = "src/main.rs"
+
+[dependencies]
+falcon-facade = { workspace = true }
+falcon-persistence = { workspace = true }
+falcon-server = { workspace = true }
+mimalloc = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

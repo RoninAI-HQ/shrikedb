@@ -1,0 +1,9 @@
+[package]
+name = "falcon-persistence"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+falcon-core = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }

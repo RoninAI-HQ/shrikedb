@@ -1,0 +1,13 @@
+[package]
+name = "falcon-facade"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+falcon-core = { workspace = true }
+bytes = { workspace = true }
+itoa = { workspace = true }
+smallvec = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
