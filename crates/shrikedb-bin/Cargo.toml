@@ -1,16 +1,16 @@
 [package]
-name = "falcon-bin"
+name = "shrikedb-bin"
 version.workspace = true
 edition.workspace = true
 
 [[bin]]
-name = "falcondb"
+name = "shrikedb"
 path = "src/main.rs"
 
 [dependencies]
-falcon-facade = { workspace = true }
-falcon-persistence = { workspace = true }
-falcon-server = { workspace = true }
+shrikedb-facade = { workspace = true }
+shrikedb-persistence = { workspace = true }
+shrikedb-server = { workspace = true }
 mimalloc = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }

@@ -1,10 +1,10 @@
 use mimalloc::MiMalloc;
 use std::sync::Arc;
 
-use falcon_facade::listener::Listener;
-use falcon_persistence::snapshot;
-use falcon_server::engine_shard_set::EngineShardSet;
-use falcon_server::main_service;
+use shrikedb_facade::listener::Listener;
+use shrikedb_persistence::snapshot;
+use shrikedb_server::engine_shard_set::EngineShardSet;
+use shrikedb_server::main_service;
 
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;
@@ -17,10 +17,10 @@ fn main() {
         )
         .init();
 
-    let port = std::env::var("FALCONDB_PORT").unwrap_or_else(|_| "6379".to_string());
+    let port = std::env::var("SHRIKEDB_PORT").unwrap_or_else(|_| "6379".to_string());
     let addr = format!("127.0.0.1:{}", port);
 
-    let num_shards: u32 = std::env::var("FALCONDB_SHARDS")
+    let num_shards: u32 = std::env::var("SHRIKEDB_SHARDS")
         .ok()
         .and_then(|s| s.parse().ok())
         .unwrap_or_else(|| {
@@ -31,7 +31,7 @@ fn main() {
         .max(1);
 
     tracing::info!(
-        "FalconDB v0.1.0 starting on {} with {} shards (co-located)",
+        "ShrikeDB v0.1.0 starting on {} with {} shards (co-located)",
         addr,
         num_shards
     );

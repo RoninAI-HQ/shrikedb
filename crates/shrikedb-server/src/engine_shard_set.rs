@@ -1,12 +1,12 @@
 use std::sync::Arc;
 use std::thread;
 
-use falcon_core::compact_obj::PrimeValue;
+use shrikedb_core::compact_obj::PrimeValue;
 use tokio::net::TcpStream;
 use tokio::sync::{mpsc, oneshot};
 
 use bytes::BytesMut;
-use falcon_facade::resp_parser::RespExpr;
+use shrikedb_facade::resp_parser::RespExpr;
 
 use crate::command_registry::CommandRegistry;
 use crate::shard_thread::{self, CrossShardTask, ShardControl};
@@ -194,7 +194,7 @@ impl EngineShardSet {
     /// Load RDB entries, distributing each to the correct shard.
     pub async fn load_entries(
         &self,
-        entries: Vec<falcon_persistence::rdb_load::RdbEntry>,
+        entries: Vec<shrikedb_persistence::rdb_load::RdbEntry>,
     ) {
         use crate::sharding;
 

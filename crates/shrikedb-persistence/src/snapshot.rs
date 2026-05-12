@@ -2,7 +2,7 @@ use std::fs;
 use std::io::{self, BufWriter};
 use std::path::{Path, PathBuf};
 
-use falcon_core::compact_obj::{PrimeKey, PrimeValue};
+use shrikedb_core::compact_obj::{PrimeKey, PrimeValue};
 
 use crate::rdb_load::{self, RdbEntry, RdbLoadError};
 use crate::rdb_save::RdbSaver;
@@ -28,7 +28,7 @@ pub fn save_rdb(
 
     saver.write_header()?;
     saver.write_aux("redis-ver", "7.0.0")?;
-    saver.write_aux("falcon-ver", "0.1.0")?;
+    saver.write_aux("shrikedb-ver", "0.1.0")?;
 
     // Group entries by database
     for db_idx in 0..16u16 {

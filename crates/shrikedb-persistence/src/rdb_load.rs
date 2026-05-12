@@ -1,6 +1,6 @@
 use std::io::{self, Read};
 
-use falcon_core::compact_obj::PrimeValue;
+use shrikedb_core::compact_obj::PrimeValue;
 
 use crate::rdb_format::*;
 
@@ -316,7 +316,7 @@ pub fn load_all<R: Read>(reader: R) -> Result<Vec<RdbEntry>, RdbLoadError> {
 mod tests {
     use super::*;
     use crate::rdb_save::RdbSaver;
-    use falcon_core::compact_obj::PrimeKey;
+    use shrikedb_core::compact_obj::PrimeKey;
 
     #[test]
     fn test_roundtrip() {

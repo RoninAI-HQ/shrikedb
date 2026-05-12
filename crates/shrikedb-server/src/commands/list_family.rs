@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 
-use falcon_core::compact_obj::PrimeValue;
+use shrikedb_core::compact_obj::PrimeValue;
 
 use crate::command_registry::{CommandContext, CommandEntry, CommandHandler, CommandRegistry};
 

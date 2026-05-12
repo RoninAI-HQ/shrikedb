@@ -2,8 +2,8 @@ use std::collections::HashMap;
 use std::sync::Arc;
 
 use bytes::BytesMut;
-use falcon_facade::reply_builder::ReplyBuilder;
-use falcon_facade::resp_parser::RespExpr;
+use shrikedb_facade::reply_builder::ReplyBuilder;
+use shrikedb_facade::resp_parser::RespExpr;
 
 use crate::command_registry::{CommandEntry, CommandRegistry};
 use crate::commands::{generic_family, hash_family, list_family, set_family, string_family, zset_family};
@@ -206,15 +206,15 @@ impl MainService {
             };
 
             // Convert to persistence format
-            let persist_snapshots: Vec<falcon_persistence::snapshot::ShardSnapshot> = snapshots
+            let persist_snapshots: Vec<shrikedb_persistence::snapshot::ShardSnapshot> = snapshots
                 .into_iter()
-                .map(|s| falcon_persistence::snapshot::ShardSnapshot {
+                .map(|s| shrikedb_persistence::snapshot::ShardSnapshot {
                     entries: s.entries,
                 })
                 .collect();
 
-            let path = falcon_persistence::snapshot::default_rdb_path();
-            match falcon_persistence::snapshot::save_rdb(&path, &persist_snapshots) {
+            let path = shrikedb_persistence::snapshot::default_rdb_path();
+            match shrikedb_persistence::snapshot::save_rdb(&path, &persist_snapshots) {
                 Ok(bytes) => {
                     tracing::info!("RDB saved: {} bytes to {}", bytes, path.display());
                     Ok(())

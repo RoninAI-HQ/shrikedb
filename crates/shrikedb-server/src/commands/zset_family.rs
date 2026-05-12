@@ -1,6 +1,6 @@
 use std::collections::{BTreeMap, HashMap};
 
-use falcon_core::compact_obj::{PrimeValue, SortedSetEntry};
+use shrikedb_core::compact_obj::{PrimeValue, SortedSetEntry};
 
 use crate::command_registry::{CommandContext, CommandEntry, CommandHandler, CommandRegistry};
 

@@ -1,5 +1,5 @@
 [package]
-name = "falcon-core"
+name = "shrikedb-core"
 version.workspace = true
 edition.workspace = true
 

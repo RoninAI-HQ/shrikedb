@@ -1,4 +1,4 @@
-use falcon_core::dash::cursor::Cursor;
+use shrikedb_core::dash::cursor::Cursor;
 
 use crate::command_registry::{CommandContext, CommandEntry, CommandHandler, CommandRegistry};
 use crate::db_slice::TtlResult;
@@ -83,7 +83,7 @@ fn cmd_command(mut ctx: CommandContext<'_>) {
 
 fn cmd_info(mut ctx: CommandContext<'_>) {
     let info = format!(
-        "# Server\r\nfalcondb_version:0.1.0\r\n\
+        "# Server\r\nshrikedb_version:0.1.0\r\n\
          # Keyspace\r\ndb0:keys={},expires=0\r\n",
         ctx.shard.db_slice.db_size(ctx.conn_ctx.db_index)
     );
@@ -365,7 +365,7 @@ fn cmd_hello(mut ctx: CommandContext<'_>) {
     // Return a flat array of key-value pairs (RESP2 compatible map)
     ctx.reply.send_array_len(14);
     ctx.reply.send_bulk_string(b"server");
-    ctx.reply.send_bulk_string(b"falcondb");
+    ctx.reply.send_bulk_string(b"shrikedb");
     ctx.reply.send_bulk_string(b"version");
     ctx.reply.send_bulk_string(b"0.1.0");
     ctx.reply.send_bulk_string(b"proto");

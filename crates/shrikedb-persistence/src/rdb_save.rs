@@ -1,6 +1,6 @@
 use std::io::{self, Write};
 
-use falcon_core::compact_obj::{PrimeKey, PrimeValue};
+use shrikedb_core::compact_obj::{PrimeKey, PrimeValue};
 
 use crate::rdb_format::*;
 

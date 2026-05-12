@@ -1,9 +1,9 @@
 [package]
-name = "falcon-persistence"
+name = "shrikedb-persistence"
 version.workspace = true
 edition.workspace = true
 
 [dependencies]
-falcon-core = { workspace = true }
+shrikedb-core = { workspace = true }
 thiserror = { workspace = true }
 tracing = { workspace = true }

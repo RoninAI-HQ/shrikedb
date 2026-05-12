@@ -1,5 +1,5 @@
-use falcon_core::compact_obj::{PrimeKey, PrimeValue};
-use falcon_core::dash::cursor::Cursor;
+use shrikedb_core::compact_obj::{PrimeKey, PrimeValue};
+use shrikedb_core::dash::cursor::Cursor;
 
 use crate::db_table::DbTable;
 
@@ -343,7 +343,7 @@ fn glob_match_str(pattern: &[u8], input: &[u8]) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use falcon_core::compact_obj::PrimeValue;
+    use shrikedb_core::compact_obj::PrimeValue;
 
     fn now() -> u64 {
         std::time::SystemTime::now()

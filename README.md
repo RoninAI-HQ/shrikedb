@@ -1,6 +1,6 @@
-# 🦅 FalconDB
+# 🦅 ShrikeDB
 
-> A Redis-compatible in-memory database written in **Rust**, inspired by [DragonflyDB](https://github.com/dragonflydb/dragonfly) — built on a shared-nothing, multi-threaded architecture for maximum throughput on modern hardware.
+> A Redis-compatible in-memory database written in **Rust** — built on a shared-nothing, multi-threaded architecture for maximum throughput on modern hardware.
 
 [![License: BSL-1.1](https://img.shields.io/badge/License-BSL--1.1-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org/)
@@ -29,22 +29,22 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/RoninAI-HQ/falcondb.git
-cd falcondb
+git clone https://github.com/RoninAI-HQ/shrikedb.git
+cd shrikedb
 
 # Build (optimized release build)
 cargo build --release
 
 # Run with defaults (port 6379, auto-detects CPU core count for shards)
-./target/release/falcondb
+./target/release/shrikedb
 
 # Run with a custom port and shard count
-FALCONDB_PORT=6380 FALCONDB_SHARDS=4 ./target/release/falcondb
+SHRIKEDB_PORT=6380 SHRIKEDB_SHARDS=4 ./target/release/shrikedb
 ```
 
 ### Connect
 
-FalconDB speaks the Redis Serialization Protocol (RESP), so any Redis client works out of the box:
+ShrikeDB speaks the Redis Serialization Protocol (RESP), so any Redis client works out of the box:
 
 ```bash
 # Using redis-cli
@@ -57,13 +57,13 @@ redis-cli -p 6380 PING
 
 ---
 
-## 💡 Why FalconDB
+## 💡 Why ShrikeDB
 
-Redis is fast, simple, and battle-tested — but it was designed around a single-threaded event loop. On a modern 16-core box you get the throughput of one core; the other 15 idle or run a sidecar of independent instances stitched together with cluster mode. FalconDB is built around a few principles that change that math:
+Redis is fast, simple, and battle-tested — but it was designed around a single-threaded event loop. On a modern 16-core box you get the throughput of one core; the other 15 idle or run a sidecar of independent instances stitched together with cluster mode. ShrikeDB is built around a few principles that change that math:
 
 ### 1. Vertical scaling on multi-core hardware
 
-Each FalconDB shard is an independent execution unit pinned to its own OS thread, with its own Tokio single-threaded runtime, its own hash table, and its own slice of the keyspace. A 16-core machine runs 16 shards in parallel with no cross-thread coordination on the hot path. Throughput grows roughly linearly with cores up to network and memory-bandwidth limits — a single FalconDB process replaces what would otherwise be a cluster of Redis instances.
+Each ShrikeDB shard is an independent execution unit pinned to its own OS thread, with its own Tokio single-threaded runtime, its own hash table, and its own slice of the keyspace. A 16-core machine runs 16 shards in parallel with no cross-thread coordination on the hot path. Throughput grows roughly linearly with cores up to network and memory-bandwidth limits — a single ShrikeDB process replaces what would otherwise be a cluster of Redis instances.
 
 ### 2. Shared-nothing — no locks on the data path
 
@@ -87,18 +87,18 @@ The whole engine is Rust. The data path is `unsafe`-free in the parts that matte
 
 ### 6. Drop-in compatibility
 
-Clients connect with RESP2. `redis-cli`, `redis-benchmark`, `memtier_benchmark`, `ioredis`, `lettuce`, `go-redis`, `redis-py` — they all work. You don't write code against FalconDB; you point your existing Redis client at port 6379 and it just works.
+Clients connect with RESP2. `redis-cli`, `redis-benchmark`, `memtier_benchmark`, `ioredis`, `lettuce`, `go-redis`, `redis-py` — they all work. You don't write code against ShrikeDB; you point your existing Redis client at port 6379 and it just works.
 
 ---
 
 ## ⚙️ Configuration
 
-FalconDB is configured entirely via environment variables — no config file needed.
+ShrikeDB is configured entirely via environment variables — no config file needed.
 
 | Variable        | Default        | Description                                   |
 |-----------------|----------------|-----------------------------------------------|
-| `FALCONDB_PORT` | `6379`         | TCP port to listen on                         |
-| `FALCONDB_SHARDS` | CPU core count | Number of shard threads                     |
+| `SHRIKEDB_PORT` | `6379`         | TCP port to listen on                         |
+| `SHRIKEDB_SHARDS` | CPU core count | Number of shard threads                     |
 | `RUST_LOG`      | `info`         | Log level: `debug`, `info`, `warn`, `error`   |
 
 ---
@@ -171,7 +171,7 @@ FalconDB is configured entirely via environment variables — no config file nee
 
 ```bash
 # Start the server in the background
-FALCONDB_PORT=6380 ./target/release/falcondb &
+SHRIKEDB_PORT=6380 ./target/release/shrikedb &
 
 # Basic key-value
 redis-cli -p 6380 SET greeting "hello world"
@@ -213,7 +213,7 @@ kill %1
 
 ## 🏗️ Architecture
 
-FalconDB uses a **shared-nothing, multi-shard** design inspired by DragonflyDB. Incoming connections are handled by a multi-threaded Tokio listener, and each request is routed to the appropriate shard by hashing the key.
+ShrikeDB uses a **shared-nothing, multi-shard** design. Incoming connections are handled by a multi-threaded Tokio listener, and each request is routed to the appropriate shard by hashing the key.
 
 ```
                     ┌──────────┐
@@ -241,14 +241,14 @@ FalconDB uses a **shared-nothing, multi-shard** design inspired by DragonflyDB. 
 ## 📁 Project Structure
 
 ```
-falcondb/
+shrikedb/
 ├── Cargo.toml                  # Workspace manifest
 └── crates/
-    ├── falcon-core/            # Core data structures: DashTable, CompactObj
-    ├── falcon-facade/          # Networking: RESP parser, connection handler, TCP listener
-    ├── falcon-server/          # Storage engine, command dispatch, sharding, transactions
-    ├── falcon-persistence/     # RDB save/load (planned)
-    └── falcon-bin/             # Binary entry point
+    ├── shrikedb-core/            # Core data structures: DashTable, CompactObj
+    ├── shrikedb-facade/          # Networking: RESP parser, connection handler, TCP listener
+    ├── shrikedb-server/          # Storage engine, command dispatch, sharding, transactions
+    ├── shrikedb-persistence/     # RDB save/load (planned)
+    └── shrikedb-bin/             # Binary entry point
 ```
 
 ---
@@ -266,7 +266,7 @@ cargo build --release
 cargo test
 
 # Run with debug-level logging
-RUST_LOG=debug FALCONDB_PORT=6380 cargo run --bin falcondb
+RUST_LOG=debug SHRIKEDB_PORT=6380 cargo run --bin shrike
 ```
 
 ---
@@ -279,7 +279,7 @@ RUST_LOG=debug FALCONDB_PORT=6380 cargo run --bin falcondb
 - [x] Multi-shard fan-out for multi-key commands
 - [x] Hash-tag key co-location
 - [ ] Hash, List, Set, Sorted Set data types
-- [ ] RDB persistence (`falcon-persistence`)
+- [ ] RDB persistence (`shrikedb-persistence`)
 - [ ] AOF / append-only log
 - [ ] Pub/Sub
 - [ ] Lua scripting
@@ -289,7 +289,7 @@ RUST_LOG=debug FALCONDB_PORT=6380 cargo run --bin falcondb
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please open an issue or pull request on [GitHub](https://github.com/RoninAI-HQ/falcondb).
+Contributions are welcome! Please open an issue or pull request on [GitHub](https://github.com/RoninAI-HQ/shrikedb).
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feat/my-feature`)
@@ -301,11 +301,5 @@ Contributions are welcome! Please open an issue or pull request on [GitHub](http
 
 ## 📜 License
 
-FalconDB is licensed under the **Business Source License 1.1 (BSL-1.1)**.  
+ShrikeDB is licensed under the **Business Source License 1.1 (BSL-1.1)**.  
 See [LICENSE](LICENSE) for details.
-
----
-
-## 🙏 Acknowledgements
-
-FalconDB's architecture is heavily inspired by [DragonflyDB](https://github.com/dragonflydb/dragonfly) — a modern, high-performance replacement for Redis and Memcached. Many of the core design ideas around shared-nothing sharding, shard-per-thread runtimes, and hash-tag routing originate from that project.

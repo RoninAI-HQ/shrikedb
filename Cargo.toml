@@ -1,10 +1,10 @@
 [workspace]
 members = [
-    "crates/falcon-core",
-    "crates/falcon-facade",
-    "crates/falcon-server",
-    "crates/falcon-persistence",
-    "crates/falcon-bin",
+    "crates/shrikedb-core",
+    "crates/shrikedb-facade",
+    "crates/shrikedb-server",
+    "crates/shrikedb-persistence",
+    "crates/shrikedb-bin",
 ]
 resolver = "2"
 
@@ -15,10 +15,10 @@ rust-version = "1.75"
 license = "BSL-1.1"
 
 [workspace.dependencies]
-falcon-core = { path = "crates/falcon-core" }
-falcon-facade = { path = "crates/falcon-facade" }
-falcon-server = { path = "crates/falcon-server" }
-falcon-persistence = { path = "crates/falcon-persistence" }
+shrikedb-core = { path = "crates/shrikedb-core" }
+shrikedb-facade = { path = "crates/shrikedb-facade" }
+shrikedb-server = { path = "crates/shrikedb-server" }
+shrikedb-persistence = { path = "crates/shrikedb-persistence" }
 
 ahash = "0.8"
 bytes = "1"

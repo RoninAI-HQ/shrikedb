@@ -1,5 +1,5 @@
-use falcon_core::compact_obj::{PrimeKey, PrimeValue};
-use falcon_core::dash::table::DashTable;
+use shrikedb_core::compact_obj::{PrimeKey, PrimeValue};
+use shrikedb_core::dash::table::DashTable;
 
 /// Type alias for the primary key-value table.
 pub type PrimeTable = DashTable<PrimeKey, PrimeValue>;

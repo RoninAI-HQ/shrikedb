@@ -8,9 +8,9 @@ use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use tokio::sync::{mpsc, oneshot};
 
-use falcon_facade::conn_context::ConnContext;
-use falcon_facade::reply_builder::ReplyBuilder;
-use falcon_facade::resp_parser::{ParseResult, RespExpr, RespParser};
+use shrikedb_facade::conn_context::ConnContext;
+use shrikedb_facade::reply_builder::ReplyBuilder;
+use shrikedb_facade::resp_parser::{ParseResult, RespExpr, RespParser};
 
 use crate::command_registry::CommandRegistry;
 use crate::engine_shard::EngineShard;
